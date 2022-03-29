@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Directed Graph Editor</title>
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+  </head>
+  
+  <body style="background-color: #2489C5;">
+  	<div class="container-fluid" id="container-div" style="margin-top:0px; margin-left:0px;">
+      <div id="message" style="position: absolute; display: none;">
+        This is a message
+      </div>
+      <div class=" jumbotron-padding all-round-margins" style="text-align: left; padding-top: 0px; padding-bottom: 0px;">
+        <div class="row">
+          <h2 class="heading-font col-md-10" style="font-family: Cominc sans-serif;margin-top:10px;margin-bottom:10px;padding-left:40px;">VIIQ</h2>
+          <form method="post"><input type="text" name="test"></form>
+          <!-- <p class="col-md-6">Visual Interface for Graph Query Formulation</p> -->
+          <div class="col-md-2" style="margin-top: 25px; margin-bottom:0px;padding-right:20px;">
+            <a href="http://www.uta.edu" target="_blank"><img class="img-responsive" id="uta_logo" src="images/UTA_Logo.png" alt="UTA Logo"></a>
+          </div>
+        </div>
+      </div>
+  		<div class="col-md-8 border container-fluid all-round-margins" id="app-body" class="row" >
+        <div class="row" style="margin-bottom: 0px;  margin-top: 0px">
+          <div class="panel graph col-md-12" id="svg-div" style="margin-bottom: 0px;">
+
+          </div>
+        </div>
+      </div>
+        
+
+        <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="x-button">×</button>
+                <h4 class="modal-title" id="modal-title"></h4>
+              </div>
+              <div class="modal-body">
+                <div id="modal-text">
+
+                </div>
+                <div id="modal-loading" style ="display: none;">loading......</div>
+                <div class="var-count border-position border" id='selectDiv'>
+                  <div id="edge-div" style ="display: none;">
+                    <div class="row">
+                      <div class="row">
+                        <p class="col-md-3"> <b>Edge Label:</b> </p>
+                        <select class="form-control wrapper col-md-8" id="edge-options" style="width: 70%">
+                          <option value="Select Name" id="add-value-1" >select Edge...</option>
+                        </select>
+                      </div>
+                     <!--  <h4>Select Edge Type:</h4>
+                      <p id="node-name-paragraph" style="text-align:left;"></p>
+                      <select class="form-control wrapper" id="edge-options" >
+                        <option value="Select Name" id="add-value-1" >select Name</option>
+                      </select> -->
+                    </div>
+                  </div>
+                  <form>
+                  <div id="keyword-div">
+                     <div class="row">
+                       <p class="col-md-3" style ="margin-top: 6px"> <b>Keyword:</b> </p>
+                      <input type="text" name="temp" class="form-control" id="main-search-box" autocomplete="off">
+                   </div></form>
+                    <!-- <div class="row">
+                     <h4>Select Keyword:</h4>
+                     <p id="node-name-paragraph" style="text-align:left"></p>
+                     <select class="form-control wrapper" id="keyword-options">
+                       <option value="Select Name" id="add-value-1">select Name</option>
+                     </select>
+                    </div>-->
+                  </div> 
+                  <div id="domain-div" style ="display: none;">
+                     <div class="row">
+                        <p class="col-md-3" style="margin-top: 6px"> <b>Domain:</b> </p>
+                        <select class="form-control wrapper col-md-8" id="domain-options" style="width: 70%">
+                          <option value="Select Name" >Select Domain...</option>
+                        </select>
+                      </div>
+                    <!-- <div class="row">
+                      <h4>Select Domain:</h4>
+                      <p id="node-name-paragraph" style="text-align:left"></p>
+                      <select class="form-control wrapper" id="domain-options">
+                        <option value="Select Name" id="add-value-1" >select Name</option>
+                      </select> 
+                    </div> -->
+                  </div>
+                  <div id="type-div" style ="display: none;">
+                      <div class="row">
+                        <p class="col-md-3" style="margin-top: 6px"> <b>Type:</b> </p>
+                        <select class="form-control wrapper col-md-8" id="type-options" style="width: 70%">
+                          <option value="Select Name" >Select Type...</option>
+                        </select>
+                      </div>
+                    <!-- <h4>Select Type:</h4>
+                    <p id="node-name-paragraph" style="text-align:left"></p>
+                    <select class="form-control wrapper" id="type-options">
+                      <option value="Select Name" id="add-value-1" >select Name</option>
+                    </select>  -->
+                  </div>
+                  <div id="entity-div" style="display: none">
+                      <div class="row">
+                        <p class="col-md-3" style="margin-top: 6px"> <b>Entity:</b> </p>
+                        <select class="form-control wrapper col-md-8" id="rntity-options" style="width: 70%">
+                          <option value="Select Name" >Select Entity...</option>
+                        </select>
+                      </div>
+                    <!-- <h4>Select Entity:</h4>
+                    <select class="form-control wrapper" id="entity-options" disabled>
+                      <option value="Select Name" id="add-value-1" >select Name</option>
+                    </select> 
+                  </div> -->
+                </div>
+              </div>
+              <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                <button type="button" class="btn btn-primary" id="save-changes">Save</button>
+                <button type="button" class="btn btn-primary" id="show-instructions">Help</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div>  
+      <div class="row">
+        <div class="col-md-4" style="padding-left:2px;" id="lower-div-examples-reverseRole">
+         <div class="col-md-12 border all-round-margins" style="height: 200px; background-color: #F7F4F4">
+           <h4>Examples/ Reverse role</h4>
+          </div>
+        </div>
+        <div class="col-md-4" style="padding-left: 2px; padding-right: 15px" id="lower-div-1">
+          <div class="col-md-12 border all-round-margins" style="height: 200px; background-color: #F7F4F4">
+            <h4>Active Help</h4>
+            <ul id="active-help">
+              <li class="li-animation">Click on the canvas to add a new node.</li>
+            </ul>
+          </div>
+          <div class="col-md-12 border all-round-margins" style="background-color: #F7F4F4">
+            <h4>Useful Tips</h4>
+            <ul>
+              <li>To <b>add a new node</b>, click on empty space in the canvas.</li>
+              <li>To <b>add a new edge</b> between two nodes, click on one node and drag to the other node.</li>
+              <li>To <b>re-position a node</b>, hold down the shift key, then click and drag the node around.</li>
+              <li>To <b>remove a node</b>, select the node by clicking on it and press the Delete button.</li>
+              <li>To <b>remove an edge</b>, select the edge by clicking on it and press the Delete button.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4" style="padding-left:2px">
+          <div class="col-md-12 border-fill all-round-margins" id="lower-div-2">
+            <div class="row col-md-6" >
+              <h4>Data Graph:</h4>
+              <!--<p> <b>Data Graph:</b></p>-->
+              <select class="form-control wrapper" id="dropdown1" style="width: 90%">
+                <option value="Select Name">Select Data Graph...</option>
+                <option>DBPedia</option>
+                <option>Freebase</option>
+                <option>YAGO</option>
+              </select>
+            </div>
+            <div class="row col-md-6">
+              <h4>Suggestion Algorithm:</h4>
+              <!--<p > <b>Recommendation Algorithm:</b> </p>-->
+              <select class="form-control wrapper" id="dropdown2" style="width: 107%">
+                <option value="Select Name">Select Suggestion Algorithm...</option>
+                <option>Alphabetically Sorted</option>
+                <option>Bayesian Classifier</option>
+                <option>Random Correlation Paths</option>
+              </select>
+            </div>
+            <div class="row span7 text-left col-md-12" style="margin-top: 15px">
+              <button class="btn btn-primary button-position"> Submit </button>
+              <button class="btn btn-primary button-position" onclick="erase()"> Clear </button>
+            </div>
+
+          </div>
+        </div>
+        
+      </div>
+  	</div>
+    <!-- <div class="container"> -->
+      
+      <!-- </div>   -->
+  <!-- </div> -->
+
+
+  <script src="js/jquery-1.11.1.min.js"></script>
+  <script src="js/d3.min.js"></script>
+  <!-- // <script src="js/newGrapher.js"></script> -->
+  <script src="js/app1.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!--<script src="js/bootstrap-modalmanager.js"></script>
+  <script src="js/bootstrap-modal.js"></script>-->
+  </body>
+</html>
